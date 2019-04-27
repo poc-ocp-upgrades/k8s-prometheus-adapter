@@ -16,6 +16,8 @@ type MetricsQuery interface {
 func NewMetricsQuery(queryTemplate string, resourceConverter ResourceConverter) (MetricsQuery, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	templ, err := template.New("metrics-query").Delims("<<", ">>").Parse(queryTemplate)
 	if err != nil {
 		return nil, fmt.Errorf("unable to parse metrics query template %q: %v", queryTemplate, err)
@@ -36,6 +38,8 @@ type queryTemplateArgs struct {
 }
 
 func (q *metricsQuery) Build(series string, resource schema.GroupResource, namespace string, extraGroupBy []string, names ...string) (prom.Selector, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var exprs []string

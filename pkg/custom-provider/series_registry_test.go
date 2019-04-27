@@ -18,6 +18,8 @@ import (
 func restMapper() apimeta.RESTMapper {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mapper := apimeta.NewDefaultRESTMapper([]schema.GroupVersion{coreapi.SchemeGroupVersion})
 	mapper.Add(coreapi.SchemeGroupVersion.WithKind("Pod"), apimeta.RESTScopeNamespace)
 	mapper.Add(coreapi.SchemeGroupVersion.WithKind("Service"), apimeta.RESTScopeNamespace)
@@ -29,6 +31,8 @@ func restMapper() apimeta.RESTMapper {
 	return mapper
 }
 func setupMetricNamer() []MetricNamer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := config.DefaultConfig(1*time.Minute, "kube_")

@@ -20,6 +20,8 @@ import (
 func restMapper() apimeta.RESTMapper {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mapper := apimeta.NewDefaultRESTMapper([]schema.GroupVersion{corev1.SchemeGroupVersion})
 	mapper.Add(corev1.SchemeGroupVersion.WithKind("Pod"), apimeta.RESTScopeNamespace)
 	mapper.Add(corev1.SchemeGroupVersion.WithKind("Node"), apimeta.RESTScopeRoot)
@@ -29,14 +31,20 @@ func restMapper() apimeta.RESTMapper {
 func buildPodSample(namespace, pod, container string, val float64, ts int64) *pmodel.Sample {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pmodel.Sample{Metric: pmodel.Metric{"namespace": pmodel.LabelValue(namespace), "pod_name": pmodel.LabelValue(pod), "container_name": pmodel.LabelValue(container)}, Value: pmodel.SampleValue(val), Timestamp: pmodel.Time(ts)}
 }
 func buildNodeSample(node string, val float64, ts int64) *pmodel.Sample {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &pmodel.Sample{Metric: pmodel.Metric{"instance": pmodel.LabelValue(node), "id": "/"}, Value: pmodel.SampleValue(val), Timestamp: pmodel.Time(ts)}
 }
 func buildQueryRes(metric string, samples ...*pmodel.Sample) prom.QueryResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, sample := range samples {
@@ -48,10 +56,14 @@ func buildQueryRes(metric string, samples ...*pmodel.Sample) prom.QueryResult {
 func mustBuild(sel prom.Selector, err error) prom.Selector {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Expect(err).NotTo(HaveOccurred())
 	return sel
 }
 func buildResList(cpu, memory float64) corev1.ResourceList {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return corev1.ResourceList{corev1.ResourceCPU: *resource.NewMilliQuantity(int64(cpu*1000.0), resource.DecimalSI), corev1.ResourceMemory: *resource.NewMilliQuantity(int64(memory*1000.0), resource.BinarySI)}

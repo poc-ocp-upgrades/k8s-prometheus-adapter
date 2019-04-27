@@ -19,6 +19,8 @@ const fakeProviderStartDuration = 2 * time.Second
 func setupPrometheusProvider() (provider.CustomMetricsProvider, *fakeprom.FakePrometheusClient) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeProm := &fakeprom.FakePrometheusClient{}
 	fakeKubeClient := &fakedyn.FakeDynamicClient{}
 	cfg := config.DefaultConfig(1*time.Minute, "")

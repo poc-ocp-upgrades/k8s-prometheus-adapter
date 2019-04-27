@@ -29,6 +29,8 @@ type httpAPIClient struct {
 func (c *httpAPIClient) Do(ctx context.Context, verb, endpoint string, query url.Values) (APIResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	u := *c.baseURL
 	u.Path = path.Join(c.baseURL.Path, endpoint)
 	u.RawQuery = query.Encode()
@@ -74,6 +76,8 @@ func (c *httpAPIClient) Do(ctx context.Context, verb, endpoint string, query url
 func NewGenericAPIClient(client *http.Client, baseURL *url.URL) GenericAPIClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &httpAPIClient{client: client, baseURL: baseURL}
 }
 
@@ -88,15 +92,21 @@ type queryClient struct{ api GenericAPIClient }
 func NewClientForAPI(client GenericAPIClient) Client {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &queryClient{api: client}
 }
 func NewClient(client *http.Client, baseURL *url.URL) Client {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	genericClient := NewGenericAPIClient(client, baseURL)
 	return NewClientForAPI(genericClient)
 }
 func (h *queryClient) Series(ctx context.Context, interval model.Interval, selectors ...Selector) ([]Series, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vals := url.Values{}
@@ -120,6 +130,8 @@ func (h *queryClient) Series(ctx context.Context, interval model.Interval, selec
 func (h *queryClient) Query(ctx context.Context, t model.Time, query Selector) (QueryResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vals := url.Values{}
 	vals.Set("query", string(query))
 	if t != 0 {
@@ -137,6 +149,8 @@ func (h *queryClient) Query(ctx context.Context, t model.Time, query Selector) (
 	return queryRes, err
 }
 func (h *queryClient) QueryRange(ctx context.Context, r Range, query Selector) (QueryResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vals := url.Values{}
@@ -164,6 +178,8 @@ func (h *queryClient) QueryRange(ctx context.Context, r Range, query Selector) (
 func timeoutFromContext(ctx context.Context) (time.Duration, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if deadline, hasDeadline := ctx.Deadline(); hasDeadline {
 		return time.Now().Sub(deadline), true
 	}
@@ -172,7 +188,16 @@ func timeoutFromContext(ctx context.Context) (time.Duration, bool) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

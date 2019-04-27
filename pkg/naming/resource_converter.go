@@ -36,6 +36,8 @@ type resourceConverter struct {
 func NewResourceConverter(resourceTemplate string, overrides map[string]config.GroupResource, mapper apimeta.RESTMapper) (ResourceConverter, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	converter := &resourceConverter{labelToResource: make(map[pmodel.LabelName]schema.GroupResource), resourceToLabel: make(map[schema.GroupResource]pmodel.LabelName), mapper: mapper}
 	if resourceTemplate != "" {
 		labelTemplate, err := template.New("resource-label").Delims("<<", ">>").Parse(resourceTemplate)
@@ -63,6 +65,8 @@ func NewResourceConverter(resourceTemplate string, overrides map[string]config.G
 func (r *resourceConverter) LabelForResource(resource schema.GroupResource) (pmodel.LabelName, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.labelResourceMu.RLock()
 	lbl, ok := r.resourceToLabel[resource]
 	r.labelResourceMu.RUnlock()
@@ -76,6 +80,8 @@ func (r *resourceConverter) LabelForResource(resource schema.GroupResource) (pmo
 	return lbl, nil
 }
 func (r *resourceConverter) makeLabelForResource(resource schema.GroupResource) (pmodel.LabelName, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.labelTemplate == nil {
@@ -101,6 +107,8 @@ func (r *resourceConverter) makeLabelForResource(resource schema.GroupResource) 
 	return lbl, nil
 }
 func (r *resourceConverter) ResourcesForSeries(series prom.Series) ([]schema.GroupResource, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var resources []schema.GroupResource

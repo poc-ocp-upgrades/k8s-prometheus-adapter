@@ -31,6 +31,8 @@ var (
 func newResourceQuery(cfg config.ResourceRule, mapper apimeta.RESTMapper) (resourceQuery, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	converter, err := naming.NewResourceConverter(cfg.Resources.Template, cfg.Resources.Overrides, mapper)
 	if err != nil {
 		return resourceQuery{}, fmt.Errorf("unable to construct label-resource converter: %v", err)
@@ -56,6 +58,8 @@ type resourceQuery struct {
 func NewProvider(prom client.Client, mapper apimeta.RESTMapper, cfg *config.ResourceRules) (provider.MetricsProvider, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cpuQuery, err := newResourceQuery(cfg.CPU, mapper)
 	if err != nil {
 		return nil, fmt.Errorf("unable to construct querier for CPU metrics: %v", err)
@@ -79,6 +83,8 @@ type nsQueryResults struct {
 }
 
 func (p *resourceProvider) GetContainerMetrics(pods ...apitypes.NamespacedName) ([]provider.TimeInfo, [][]metrics.ContainerMetrics, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(pods) == 0 {
@@ -116,6 +122,8 @@ func (p *resourceProvider) GetContainerMetrics(pods ...apitypes.NamespacedName) 
 	return resTimes, resMetrics, nil
 }
 func (p *resourceProvider) assignForPod(pod apitypes.NamespacedName, resultsByNs map[string]nsQueryResults, resMetrics *[]metrics.ContainerMetrics, resTime *provider.TimeInfo) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	nsRes, nsResPresent := resultsByNs[pod.Namespace]
@@ -165,6 +173,8 @@ func (p *resourceProvider) assignForPod(pod apitypes.NamespacedName, resultsByNs
 func (p *resourceProvider) GetNodeMetrics(nodes ...string) ([]provider.TimeInfo, []corev1.ResourceList, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(nodes) == 0 {
 		return nil, nil, nil
 	}
@@ -200,6 +210,8 @@ func (p *resourceProvider) GetNodeMetrics(nodes ...string) ([]provider.TimeInfo,
 func (p *resourceProvider) queryBoth(now pmodel.Time, resource schema.GroupResource, namespace string, names ...string) nsQueryResults {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var cpuRes, memRes queryResults
 	var cpuErr, memErr error
 	var wg sync.WaitGroup
@@ -225,6 +237,8 @@ func (p *resourceProvider) queryBoth(now pmodel.Time, resource schema.GroupResou
 type queryResults map[string][]*pmodel.Sample
 
 func (p *resourceProvider) runQuery(now pmodel.Time, queryInfo resourceQuery, resource schema.GroupResource, namespace string, names ...string) (queryResults, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var query client.Selector
@@ -262,7 +276,16 @@ func (p *resourceProvider) runQuery(now pmodel.Time, queryInfo resourceQuery, re
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

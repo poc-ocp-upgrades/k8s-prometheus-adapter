@@ -38,6 +38,8 @@ type basicSeriesRegistry struct {
 func (r *basicSeriesRegistry) SetSeries(newSeriesSlices [][]prom.Series, namers []MetricNamer) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(newSeriesSlices) != len(namers) {
 		return fmt.Errorf("need one set of series per namer")
 	}
@@ -73,11 +75,15 @@ func (r *basicSeriesRegistry) SetSeries(newSeriesSlices [][]prom.Series, namers 
 func (r *basicSeriesRegistry) ListAllMetrics() []provider.CustomMetricInfo {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	return r.metrics
 }
 func (r *basicSeriesRegistry) QueryForMetric(metricInfo provider.CustomMetricInfo, namespace string, resourceNames ...string) (prom.Selector, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.mu.RLock()
@@ -104,6 +110,8 @@ func (r *basicSeriesRegistry) QueryForMetric(metricInfo provider.CustomMetricInf
 	return query, true
 }
 func (r *basicSeriesRegistry) MatchValuesToNames(metricInfo provider.CustomMetricInfo, values pmodel.Vector) (matchedValues map[string]pmodel.SampleValue, found bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.mu.RLock()

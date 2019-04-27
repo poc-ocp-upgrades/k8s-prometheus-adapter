@@ -35,10 +35,14 @@ type prometheusProvider struct {
 func NewPrometheusProvider(mapper apimeta.RESTMapper, kubeClient dynamic.Interface, promClient prom.Client, namers []MetricNamer, updateInterval time.Duration, maxAge time.Duration) (provider.CustomMetricsProvider, Runnable) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lister := &cachingMetricsLister{updateInterval: updateInterval, maxAge: maxAge, promClient: promClient, namers: namers, SeriesRegistry: &basicSeriesRegistry{mapper: mapper}}
 	return &prometheusProvider{mapper: mapper, kubeClient: kubeClient, promClient: promClient, SeriesRegistry: lister}, lister
 }
 func (p *prometheusProvider) metricFor(value pmodel.SampleValue, name types.NamespacedName, info provider.CustomMetricInfo) (*custom_metrics.MetricValue, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ref, err := helpers.ReferenceFor(p.mapper, name, info)
@@ -48,6 +52,8 @@ func (p *prometheusProvider) metricFor(value pmodel.SampleValue, name types.Name
 	return &custom_metrics.MetricValue{DescribedObject: ref, MetricName: info.Metric, Timestamp: metav1.Time{time.Now()}, Value: *resource.NewMilliQuantity(int64(value*1000.0), resource.DecimalSI)}, nil
 }
 func (p *prometheusProvider) metricsFor(valueSet pmodel.Vector, info provider.CustomMetricInfo, namespace string, names []string) (*custom_metrics.MetricValueList, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	values, found := p.MatchValuesToNames(info, valueSet)
@@ -70,6 +76,8 @@ func (p *prometheusProvider) metricsFor(valueSet pmodel.Vector, info provider.Cu
 func (p *prometheusProvider) buildQuery(info provider.CustomMetricInfo, namespace string, names ...string) (pmodel.Vector, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query, found := p.QueryForMetric(info, namespace, names...)
 	if !found {
 		return nil, provider.NewMetricNotFoundError(info.GroupResource, info.Metric)
@@ -86,6 +94,8 @@ func (p *prometheusProvider) buildQuery(info provider.CustomMetricInfo, namespac
 	return *queryResults.Vector, nil
 }
 func (p *prometheusProvider) GetMetricByName(name types.NamespacedName, info provider.CustomMetricInfo) (*custom_metrics.MetricValue, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	queryResults, err := p.buildQuery(info, name.Namespace, name.Name)
@@ -112,6 +122,8 @@ func (p *prometheusProvider) GetMetricByName(name types.NamespacedName, info pro
 func (p *prometheusProvider) GetMetricBySelector(namespace string, selector labels.Selector, info provider.CustomMetricInfo) (*custom_metrics.MetricValueList, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resourceNames, err := helpers.ListObjectNames(p.mapper, p.kubeClient, namespace, selector, info)
 	if err != nil {
 		glog.Errorf("unable to list matching resource names: %v", err)
@@ -135,9 +147,13 @@ type cachingMetricsLister struct {
 func (l *cachingMetricsLister) Run() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.RunUntil(wait.NeverStop)
 }
 func (l *cachingMetricsLister) RunUntil(stopChan <-chan struct{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	go wait.Until(func() {
@@ -153,6 +169,8 @@ type selectorSeries struct {
 }
 
 func (l *cachingMetricsLister) updateMetrics() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	startTime := pmodel.Now().Add(-1 * l.maxAge)

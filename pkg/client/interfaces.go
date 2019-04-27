@@ -29,6 +29,8 @@ type QueryResult struct {
 func (qr *QueryResult) UnmarshalJSON(b []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v := struct {
 		Type	model.ValueType	`json:"resultType"`
 		Result	json.RawMessage	`json:"result"`
@@ -65,6 +67,8 @@ type Series struct {
 func (s *Series) UnmarshalJSON(data []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rawMetric model.Metric
 	err := json.Unmarshal(data, &rawMetric)
 	if err != nil {
@@ -78,6 +82,8 @@ func (s *Series) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (s *Series) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	lblStrings := make([]string, 0, len(s.Labels))

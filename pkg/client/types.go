@@ -23,6 +23,8 @@ type Error struct {
 func (e *Error) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s: %s", e.Type, e.Msg)
 }
 

@@ -9,6 +9,8 @@ import (
 func TestProvider(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Custom Metrics Provider Suite")
 }

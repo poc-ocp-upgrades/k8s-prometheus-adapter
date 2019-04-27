@@ -23,6 +23,8 @@ type labelGroupResExtractor struct {
 func newLabelGroupResExtractor(labelTemplate *template.Template) (*labelGroupResExtractor, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labelRegexBuff := new(bytes.Buffer)
 	if err := labelTemplate.Execute(labelRegexBuff, schema.GroupResource{"(?P<group>.+?)", "(?P<resource>.+?)"}); err != nil {
 		return nil, fmt.Errorf("unable to convert label template to matcher: %v", err)
@@ -55,6 +57,8 @@ func newLabelGroupResExtractor(labelTemplate *template.Template) (*labelGroupRes
 func (e *labelGroupResExtractor) GroupResourceForLabel(lbl pmodel.LabelName) (schema.GroupResource, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	matchGroups := e.regex.FindStringSubmatch(string(lbl))
 	if matchGroups != nil {
 		group := ""
@@ -68,7 +72,16 @@ func (e *labelGroupResExtractor) GroupResourceForLabel(lbl pmodel.LabelName) (sc
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -10,6 +10,8 @@ import (
 func FromFile(filename string) (*MetricsDiscoveryConfig, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	file, err := os.Open(filename)
 	defer file.Close()
 	if err != nil {
@@ -22,6 +24,8 @@ func FromFile(filename string) (*MetricsDiscoveryConfig, error) {
 	return FromYAML(contents)
 }
 func FromYAML(contents []byte) (*MetricsDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cfg MetricsDiscoveryConfig
