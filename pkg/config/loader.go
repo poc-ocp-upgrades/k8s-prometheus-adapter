@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-
 	yaml "gopkg.in/yaml.v2"
 )
 
-// FromFile loads the configuration from a particular file.
 func FromFile(filename string) (*MetricsDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	file, err := os.Open(filename)
 	defer file.Close()
 	if err != nil {
@@ -21,9 +21,9 @@ func FromFile(filename string) (*MetricsDiscoveryConfig, error) {
 	}
 	return FromYAML(contents)
 }
-
-// FromYAML loads the configuration from a blob of YAML.
 func FromYAML(contents []byte) (*MetricsDiscoveryConfig, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var cfg MetricsDiscoveryConfig
 	if err := yaml.UnmarshalStrict(contents, &cfg); err != nil {
 		return nil, fmt.Errorf("unable to parse metrics discovery config: %v", err)
